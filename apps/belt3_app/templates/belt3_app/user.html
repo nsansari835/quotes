@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}    
+    <link rel="stylesheet" href="{% static 'belt3_app/style.css' %}" media="screen" title="no title"  charset="utf-8">
+    <link rel="stylesheet" href="{% static 'belt3_app/normalize.css' %}" media="screen" title="no title"  charset="utf-8">
+    <link rel="stylesheet" href="{% static 'belt3_app/skeleton.css' %}" media="screen" title="no title"  charset="utf-8">
+    <title>Quotes</title>
+</head>
+<body>
+    <form action="/quotes" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Dashboard">
+    </form>
+    Posts by {{user.name}}
+    Count {{count}}
+    {% for k in content%}
+    <div>
+            {{k.quoteby}}:
+            {{k.message}}
+            <br>
+        </div>
+    {%endfor%}
+
+
+</body>
+</html>

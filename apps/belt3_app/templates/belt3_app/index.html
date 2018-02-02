@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}    
+    <link rel="stylesheet" href="{% static 'belt3_app/style.css' %}" media="screen" title="no title"  charset="utf-8">
+    <link rel="stylesheet" href="{% static 'belt3_app/normalize.css' %}" media="screen" title="no title"  charset="utf-8">
+    <link rel="stylesheet" href="{% static 'belt3_app/skeleton.css' %}" media="screen" title="no title"  charset="utf-8">
+    <title>Login/Registration</title>
+</head>
+<body>
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message}}</p>
+        {% endfor %}
+    {% endif %}
+    <div class="forms">
+        <form action='/register' method='POST' id="survey">
+            {% csrf_token %}
+            Name: <input type='text' name="name"> <br>
+            Alias: <input type="text" name="alias"><br>
+            Email: <input type="text" name="email"> <br>
+            Password: <input type="text" name="password"> <br>
+            Confirm PW: <input type="Password" name="passwords"> <br>
+            Date of Birth: <input type="date" name='dob' value='yyyy-mm-dd'>
+            <input type='submit' value='Register'> 
+        </form>
+    </div>
+    <form action='/log' method='POST' id="survey"> <br>
+        {% csrf_token %}
+        Email: <input type="text" name="email"> <br> 
+        Password: <input type="text" name="password"> <br>
+
+        <input type='submit' value='log in'>
+    </form>
+
+
+</body>
+</html>

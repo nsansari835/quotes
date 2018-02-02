@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}    
+    <link rel="stylesheet" href="{% static 'belt3_app/style.css' %}" media="screen" title="no title"  charset="utf-8">
+    <link rel="stylesheet" href="{% static 'belt3_app/normalize.css' %}" media="screen" title="no title"  charset="utf-8">
+    <link rel="stylesheet" href="{% static 'belt3_app/skeleton.css' %}" media="screen" title="no title"  charset="utf-8">
+    <title>Quotes</title>
+</head>
+<body>
+    {{quotes}}
+    <p>Welcome {{users.name}}</p>
+<div class='box'><h1>Hello world</h1></div>
+
+
+    <form action="/logout" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Log out">
+    </form>
+
+
+
+    <form action="/posts" method='POST'>
+        {% csrf_token %}
+       Quoted by: <input type="text" name='quoted'>
+       Message: <input type="text" name="message">
+       <input type="submit" value="Submit">
+    </form>
+
+
+
+    {% for quotes in quote%}
+    <div class="box">
+    {{quotes.quoteby}}:
+    {{quotes.message}}
+    <br>
+    Posted by: <a href="users/{{quotes.user.id}}">{{quotes.user.name}}</a>
+    </div>
+
+
+
+    <form action="favorite/{{quotes.user.id}}" method="POST">
+        {% csrf_token %}
+            <input type="hidden" value='{{quotes.id}}' name='quote_id'>
+            <input type="hidden" value= '{{request.session.user_id}}' name="user_id">
+            <input type="submit" value="Add to My list">
+        </form>
+
+        
+    {% endfor %}
+
+    ******************************************************************************************************
+
+    {% for k in favorite%}
+    <div >
+    {{k.quoteby}}:
+    {{k.message}}
+    <br>
+    Posted by: <a href="users/{{k.user.id}}">{{k.user.name}}</a>
+    </div>
+
+
+
+    <form action="removefav/{{k.user.id}}" method="POST">
+        {% csrf_token %}
+            <input type="hidden" value='{{k.id}}' name='quote_id'>
+            <input type="hidden" value= '{{request.session.user_id}}' name="user_id">
+            <input type="submit" value="Remove From My List">
+        </form>
+
+        
+    {% endfor %}
+
+
+
+    
+
+
+
+    
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message}}</p>
+        {% endfor %}
+    {% endif %}    
+
+</body>
+</html>
